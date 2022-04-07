@@ -3,10 +3,15 @@ var timeBlockList = $('#timeBlockList')
 var saveFeedback = $('#saveFeedback')
 var currentTodo = JSON.parse(localStorage.getItem('todo'))||["","","","","","","","",""]
 
-currentDay.text(moment().format('DD[-]MMM[-]YYYY[ ] HH:mm:ss'))
-var currentTime = setInterval(function(){
-    currentDay.text(moment().format('DD[-]MMM[-]YYYY[ ] HH:mm:ss'))
-},1000)
+handleCurrentTime()
+var currentTime = setInterval(handleCurrentTime ,1000)
+
+function handleCurrentTime(){
+    var now = new Date()
+    option = {month: 'short'}
+    var timeText = now.getDate() + '-' + new Intl.DateTimeFormat('en-AU', option).format(now) + '-' + now.getFullYear() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
+    currentDay.text(timeText)
+}
 
 function init(){
     for (var i = 0; i < 9; i++){
@@ -34,7 +39,8 @@ handleColor()
 var colorChecker = setInterval(handleColor,1000)
 
 function handleColor(){
-    var currentHour = parseInt(moment().format('HH'))
+    var now = new Date()
+    var currentHour = parseInt(now.getHours())
     var index = currentHour - 9
     for (var i = 0; i < 9; i++){
         var inputGroup = $(".input-group[value=" + i +"]")
