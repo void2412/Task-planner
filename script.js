@@ -8,8 +8,8 @@ var currentTime = setInterval(handleCurrentTime ,1000)
 
 function handleCurrentTime(){
     var now = new Date()
-    option = {month: 'short'}
-    var timeText = now.getDate() + '-' + new Intl.DateTimeFormat('en-AU', option).format(now) + '-' + now.getFullYear() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
+    option = {day:'numeric',month: 'short',year:'numeric',hour: 'numeric',minute: 'numeric',second:'numeric', hour12:false}
+    var timeText = new Intl.DateTimeFormat('en-AU', option).format(now)
     currentDay.text(timeText)
 }
 
